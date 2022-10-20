@@ -13,21 +13,26 @@ export class LoginComponent implements OnInit {
   constructor(
     private http: HttpClientModule,
     private routing: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {}
   loggedInUser = new User();
   user = new User();
 
-  login(data: any) {
+  login(userData: any) {
     // Login Part
-    this.userService.userLogin(data.email).subscribe(
+    this.userService.userLogin(userData.email).subscribe(
       (data) => {
-        // console.log(data);
         this.loggedInUser = data;
-        this.userService.storeUserData(data);
-        console.log(this.loggedInUser);
+        if (data.password != userData.password) {
+          alert('Incorrect email or password')
+        } else {
+          this.userService.storeUserData(data);
+          console.log(this.loggedInUser);
+          alert('Login successful');
+          this.routing.navigate(['/wallet']);
+        }
       },
       (err) => {
         console.log('Error occured: ' + err);

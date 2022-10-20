@@ -1,15 +1,29 @@
 <!-- <p>wallet works!</p> -->
-<form #creditData="ngForm" (ngSubmit)="makeTransaction(creditData.value)">
-    Enter Amount:<br>
-    <input type="number" name="amount" ngModel><br>
-    Enter Description:<br>
-    <input type="text" name="description" ngModel><br>
-    <input type="submit" value="Credit Amount"><br>
-</form>
-<form #debitData="ngForm" (ngSubmit)="makeTransaction(debitData.value)">
-    Enter Amount:<br>
-    <input type="number" name="amount" ngModel><br>
-    Enter Description:<br>
-    <input type="text" name="description" ngModel><br>
-    <input type="submit" value="Debit Amount">
-</form>
+<nav class="navbar">
+    <h1>Online-Wallet</h1>
+    <!-- <ul>
+    <li class="btn btn-logout">Logout</li>
+  </ul> -->
+</nav>
+<main>
+    <section>
+        <h2>Current Balance</h2>
+        <h3>₹ {{user.balance}}</h3>
+    </section>
+    <section>
+        <form #creditData="ngForm" (ngSubmit)="creditTransaction(creditData.value)">
+            Enter Amount:<br>
+            <input type="number" name="amount" ngModel><br>
+            Enter Description:<br>
+            <input type="text" name="description" ngModel><br>
+            <input type="submit" value="Credit Amount"><br>
+        </form>
+        <form #debitData="ngForm" (ngSubmit)="debitTransaction(debitData.value)">
+            Enter Amount:<br>
+            <input type="number" name="amount" ngModel><br>
+            Enter Description:<br>
+            <input type="text" name="description" ngModel><br>
+            <input type="submit" value="Debit Amount">
+        </form>
+    </section>
+</main>

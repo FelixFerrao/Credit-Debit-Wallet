@@ -30,6 +30,7 @@ public class TransactionService {
         if(account.isPresent()) {
             account.get().setBalance(account.get().getBalance() + transaction.getAmount());
             transaction.setAccount(account.get());
+            transaction.setTransactionType(1);
             transactionRepository.save(transaction);
             accountRepository.save(account.get());
             return transaction;
@@ -42,6 +43,7 @@ public class TransactionService {
         if(account.isPresent()) {
             account.get().setBalance(account.get().getBalance() - transaction.getAmount());
             transaction.setAccount(account.get());
+            transaction.setTransactionType(0);
             transactionRepository.save(transaction);
             accountRepository.save(account.get());
             return transaction;

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from './user';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class UserService {
     return this.user;
   }
 
-  userLogin(email: string) {
+  userLogin(email: string): Observable<User> {
     return this.http.get<User>(this.url + '/' + email);
   }
 }

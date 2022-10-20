@@ -1,0 +1,18 @@
+<!-- <p>transactions works!</p> -->
+<main>
+    <section class="container">
+        <table>
+            <tr>
+                <th>Reason of Transaction</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+            <tr *ngFor="let transaction of transactions">
+                <td >{{transaction.reason}}</td>
+                <td >{{transaction.transactionDate}}</td>
+                <td *ngIf="transaction.transactionType == 0">- {{transaction.amount}}</td>
+                <td *ngIf="transaction.transactionType == 1">+ {{transaction.amount}}</td>
+            </tr>
+        </table>
+    </section>
+</main>

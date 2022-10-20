@@ -7,10 +7,11 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TransactionsComponent } from './components/transactions/transactions.component';
 // import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, WalletComponent, LoginComponent],
+  declarations: [AppComponent, WalletComponent, LoginComponent, TransactionsComponent],
   imports: [
     BrowserModule,
     FormsModule,

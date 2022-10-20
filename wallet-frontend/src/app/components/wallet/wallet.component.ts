@@ -13,27 +13,61 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./wallet.component.css'],
 })
 export class WalletComponent implements OnInit {
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private userService: UserService,
     private transactionService: TransactionService,
-    private router: Router) {}
+    private router: Router
+  ) {}
   transaction = new Transactions();
   user = new User();
   transactionDTO = new TransactDTO();
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user = this.userService.getUserData();
+    // console.log(this.user);
+    if (this.user.id == null) {
+      alert('Kindly login');
+      this.router.navigate(['/login']);
+    }
+  }
 
   amount: number;
-  makeTransaction(data: any) {
-    this.user = this.userService.getUserData();
-    if(data.amount > this.user.balance) {
+  // Credit Operation
+  creditTransaction(userTransData: any) {
+    if (userTransData.amount > this.user.balance) {
       alert('Insufficient Balance');
     } else {
-      this.transactionDTO.amount = data.amount;
-      this.transactionDTO.description = data.description;
-      this.amount = this.user.balance - data.amount;
-      this.transactionService.createTransaction(this.transactionDTO, this.user.id)
+      this.transactionDTO.amount = userTransData.amount;
+      this.transactionDTO.reason = userTransData.description;
+      this.amount = this.user.balance - userTransData.amount;
+      this.transactionService
+        .creditTransaction(this.transactionDTO, this.user.id)
+        .subscribe((data) => {
+          console.log('Transaction details ' + data);
+          alert('Transaction successful');
+        });
     }
+    this.amount = 0;
+    console.log(this.transactionDTO);
+  }
+
+  // Debit Operation
+  debitTransaction(userTransData: any) {
+    if (userTransData.amount > this.user.balance) {
+      alert('Insufficient Balance');
+    } else {
+      this.transactionDTO.amount = userTransData.amount;
+      this.transactionDTO.reason = userTransData.description;
+      this.amount = this.user.balance - userTransData.amount;
+      this.transactionService
+        .debitTransaction(this.transactionDTO, this.user.id)
+        .subscribe((data) => {
+          console.log('Transaction details ' + data);
+          alert('Transaction successful');
+        });
+    }
+    this.amount = 0;
     console.log(this.transactionDTO);
   }
 }
