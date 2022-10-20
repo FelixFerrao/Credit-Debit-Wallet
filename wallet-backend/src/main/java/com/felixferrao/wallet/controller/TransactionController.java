@@ -21,12 +21,9 @@ public class TransactionController {
     TransactionService transactionService;
     @Autowired
     ValidationErrorService validationService;
-    static int counter = 0;
 
     @GetMapping("/{account_id}")
     public ResponseEntity<?> getAllTransactions(@PathVariable Long account_id) {
-        counter += 1;
-        System.out.println("Hi, I am in GetMapping Controller " + counter);
         return new ResponseEntity<>(transactionService.getAllTransactions(account_id), HttpStatus.OK);
     }
 

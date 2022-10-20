@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -38,6 +39,8 @@ public class AccountController {
         ResponseEntity errors = validationService.validate(result);
         if(errors != null) return errors;
         Account accountSaved = accountService.createOrUpdate(account);
-        return new ResponseEntity<Account>(accountSaved, HttpStatus.CREATED);
+        if(accountSaved != null) {return new ResponseEntity<Account>(accountSaved, HttpStatus.CREATED);}
+        return new ResponseEntity<>("Account already exists!", HttpStatus.BAD_REQUEST);
+
     }
 }

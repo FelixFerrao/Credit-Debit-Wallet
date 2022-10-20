@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Transactions } from 'src/app/services/transaction';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,17 +13,24 @@ export class TransactionsComponent implements OnInit {
   transactions: Transactions[];
   constructor(
     private transactionService: TransactionService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.transactionService.getAllTransactions(2).subscribe(
-      (data) => {
-        this.transactions = data;
-      },
-      (err) => {
-        console.log('An error occured: ' + err);
-      }
-    );
+    if (this.userService.getUserData().id) {
+      this.transactionService
+        .getAllTransactions(this.userService.getUserData().id)
+        .subscribe(
+          (data) => {
+            this.transactions = data;
+          },
+          (err) => {
+            console.log('An error occured: ' + err);
+          }
+        );
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }

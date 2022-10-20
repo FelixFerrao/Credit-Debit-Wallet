@@ -34,4 +34,7 @@ public class Transaction {
     @JsonIgnore
     private Account account;
 
+    @PrePersist
+    private void setDate() {this.transactionDate = new Date();}
+
 }

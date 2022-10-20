@@ -14,9 +14,14 @@ export class LoginComponent implements OnInit {
     private http: HttpClientModule,
     private routing: Router,
     private userService: UserService,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.userService.getUserData().id) {
+      this.router.navigate(['/wallet']);
+    }
+  }
   loggedInUser = new User();
   user = new User();
 
@@ -26,7 +31,7 @@ export class LoginComponent implements OnInit {
       (data) => {
         this.loggedInUser = data;
         if (data.password != userData.password) {
-          alert('Incorrect email or password')
+          alert('Incorrect email or password');
         } else {
           this.userService.storeUserData(data);
           console.log(this.loggedInUser);

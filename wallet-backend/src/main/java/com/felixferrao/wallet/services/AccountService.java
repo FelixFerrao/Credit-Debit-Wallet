@@ -19,6 +19,10 @@ public class AccountService {
         return accountRepository.findAll();
     }
     public Account createOrUpdate(Account account) {
+        Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
+        if(accountOptional.isPresent()) {
+            return null;
+        }
         if(account.getId() == null) {
             accountRepository.save(account);
         } else {

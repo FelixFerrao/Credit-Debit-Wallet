@@ -18,15 +18,19 @@ export class WalletComponent implements OnInit {
     private userService: UserService,
     private transactionService: TransactionService,
     private router: Router
-  ) {}
+  ) {
+    setTimeout(() => {
+      this.user = this.userService.getUserData();
+    }, 10000);
+  }
   transaction = new Transactions();
   user = new User();
   transactionDTO = new TransactDTO();
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.user = this.userService.getUserData();
-    }, 10000);
+    // setTimeout(() => {
+    //   this.user = this.userService.getUserData();
+    // }, 10000);
     this.user = this.userService.getUserData();
     if (this.user.id == null) {
       alert('Kindly login');
@@ -37,26 +41,20 @@ export class WalletComponent implements OnInit {
   amount: number;
   // Credit Operation
   creditTransaction(userTransData: any) {
-    if (userTransData.amount > this.user.balance) {
-      alert('Insufficient Balance');
-    } else {
-      this.transactionDTO.amount = userTransData.amount;
-      this.transactionDTO.reason = userTransData.description;
-      this.amount = this.user.balance - userTransData.amount;
-      this.transactionService
-        .creditTransaction(this.transactionDTO, this.user.id)
-        .subscribe((data) => {
-          console.log('Transaction details ' + data);
-          alert('Transaction successful');
-        });
-    }
+    this.transactionDTO.amount = userTransData.amount;
+    this.transactionDTO.reason = userTransData.reason;
+    this.amount = this.user.balance + userTransData.amount;
+    this.transactionService
+      .creditTransaction(this.transactionDTO, this.user.id)
+      .subscribe((data) => {
+        alert('Transaction successful');
+      });
+    // Updating the user balance after the transaction
     this.userService.getUserDataById(this.user.id).subscribe((data) => {
       this.userService.storeUserData(data);
       this.user = data;
     });
-
     this.amount = 0;
-    console.log(this.transactionDTO);
   }
 
   // Debit Operation
@@ -65,7 +63,7 @@ export class WalletComponent implements OnInit {
       alert('Insufficient Balance');
     } else {
       this.transactionDTO.amount = userTransData.amount;
-      this.transactionDTO.reason = userTransData.description;
+      this.transactionDTO.reason = userTransData.reason;
       this.amount = this.user.balance - userTransData.amount;
       this.transactionService
         .debitTransaction(this.transactionDTO, this.user.id)
