@@ -24,8 +24,10 @@ export class WalletComponent implements OnInit {
   transactionDTO = new TransactDTO();
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.user = this.userService.getUserData();
+    }, 10000);
     this.user = this.userService.getUserData();
-    // console.log(this.user);
     if (this.user.id == null) {
       alert('Kindly login');
       this.router.navigate(['/login']);
@@ -48,6 +50,11 @@ export class WalletComponent implements OnInit {
           alert('Transaction successful');
         });
     }
+    this.userService.getUserDataById(this.user.id).subscribe((data) => {
+      this.userService.storeUserData(data);
+      this.user = data;
+    });
+
     this.amount = 0;
     console.log(this.transactionDTO);
   }
@@ -67,6 +74,10 @@ export class WalletComponent implements OnInit {
           alert('Transaction successful');
         });
     }
+    this.userService.getUserDataById(this.user.id).subscribe((data) => {
+      this.user = data;
+      this.userService.storeUserData(data);
+    });
     this.amount = 0;
     console.log(this.transactionDTO);
   }
