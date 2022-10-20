@@ -1,5 +1,5 @@
-<p>login works!</p>
-<form #loginData="ngForm" (ngSubmit)="login(loginData)">
+<!-- <p>login works!</p> -->
+<form #loginData="ngForm" (ngSubmit)="login(loginData.value)">
   <label for="user-email">Email</label>
   <input
     type="text"

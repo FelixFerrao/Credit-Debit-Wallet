@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
+import { User } from 'src/app/services/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +10,28 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private http: HttpClient, private routing: RouterLink) {}
+  constructor(
+    private http: HttpClientModule,
+    private routing: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {}
+  loggedInUser = new User();
   user = new User();
+
   login(data: any) {
-    this.user.email = data.email;
-    this.user.password = data.email;
+    // Login Part
+    this.userService.userLogin(data.email).subscribe(
+      (data) => {
+        // console.log(data);
+        this.loggedInUser = data;
+        this.userService.storeUserData(data);
+        console.log(this.loggedInUser);
+      },
+      (err) => {
+        console.log('Error occured: ' + err);
+      }
+    );
   }
 }

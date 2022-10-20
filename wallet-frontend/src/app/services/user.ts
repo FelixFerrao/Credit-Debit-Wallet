@@ -1,7 +1,7 @@
-class User {
-  id: number | undefined;
-  email: string | undefined;
-  password: string | undefined;
-  balance: number | undefined;
-  description: string | undefined;
+export class User {
+  id: number;
+  email: String;
+  password: string;
+  balance: number;
+  description: string;
 }

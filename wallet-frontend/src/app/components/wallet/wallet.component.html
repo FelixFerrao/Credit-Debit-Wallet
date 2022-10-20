@@ -1,1 +1,15 @@
-<p>wallet works!</p>
+<!-- <p>wallet works!</p> -->
+<form #creditData="ngForm" (ngSubmit)="makeTransaction(creditData.value)">
+    Enter Amount:<br>
+    <input type="number" name="amount" ngModel><br>
+    Enter Description:<br>
+    <input type="text" name="description" ngModel><br>
+    <input type="submit" value="Credit Amount"><br>
+</form>
+<form #debitData="ngForm" (ngSubmit)="makeTransaction(debitData.value)">
+    Enter Amount:<br>
+    <input type="number" name="amount" ngModel><br>
+    Enter Description:<br>
+    <input type="text" name="description" ngModel><br>
+    <input type="submit" value="Debit Amount">
+</form>

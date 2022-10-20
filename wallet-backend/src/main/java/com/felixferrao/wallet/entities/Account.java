@@ -16,8 +16,12 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Email address should not be blank")
+    private String email;
     @NotBlank(message = "Account name cannot be blank")
     private String name;
+    @NotBlank(message = "Password cannot be blank")
+    private String password;
     @Size(min = 3, max = 30)
     private String accountNumber;
     private Double balance = new Double(0);;

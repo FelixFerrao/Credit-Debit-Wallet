@@ -25,11 +25,25 @@ public class TransactionService {
         return null;
     }
 
-    public Transaction transact(Long accountId, Transaction transaction) {
+    public Transaction creditTransact(Long accountId, Transaction transaction) {
         Optional<Account> account = accountRepository.findById(accountId);
         if(account.isPresent()) {
+            account.get().setBalance(account.get().getBalance() + transaction.getAmount());
             transaction.setAccount(account.get());
             transactionRepository.save(transaction);
+            accountRepository.save(account.get());
+            return transaction;
+        }
+        return null;
+    }
+
+    public Transaction debitTransact(Long accountId, Transaction transaction) {
+        Optional<Account> account = accountRepository.findById(accountId);
+        if(account.isPresent()) {
+            account.get().setBalance(account.get().getBalance() - transaction.getAmount());
+            transaction.setAccount(account.get());
+            transactionRepository.save(transaction);
+            accountRepository.save(account.get());
             return transaction;
         }
         return null;

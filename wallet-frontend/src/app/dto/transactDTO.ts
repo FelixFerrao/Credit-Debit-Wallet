@@ -1,5 +1,7 @@
-class TransactDTO {
-  amount: number | undefined;
-  description: string | undefined;
-  user: User | undefined;
+import { User } from "../services/user";
+
+export class TransactDTO {
+  amount: number;
+  description: string;
+  user: User;
 }

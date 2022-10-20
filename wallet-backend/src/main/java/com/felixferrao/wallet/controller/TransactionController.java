@@ -25,13 +25,33 @@ public class TransactionController {
         return new ResponseEntity<>(transactionService.getAllTransactions(account_id), HttpStatus.OK);
     }
 
-    @PostMapping("/{account_id}")
-    public ResponseEntity<?> initializeTransaction(@PathVariable Long account_id,
-                                                   @RequestBody @Valid Transaction transaction,
-                                                   BindingResult result) {
+    @PostMapping("/credit/{account_id}")
+    public ResponseEntity<?> addMoneyToWallet(@PathVariable Long account_id,
+                                              @RequestBody @Valid Transaction transaction,
+                                              BindingResult result) {
         ResponseEntity errors = validationService.validate(result);
         if(errors != null) return errors;
-        Transaction transactionSaved = transactionService.transact(account_id, transaction);
-        return new ResponseEntity<Transaction>(transactionSaved, HttpStatus.CREATED);
+        Transaction transactionSaved = transactionService.creditTransact(account_id, transaction);
+        return new ResponseEntity<Transaction>(transactionSaved, HttpStatus.OK);
     }
+
+    @PostMapping("/debit/{account_id}")
+    public ResponseEntity<?> debitMoneyFromWallet(@PathVariable Long account_id,
+                                                  @RequestBody @Valid Transaction transaction,
+                                                  BindingResult result) {
+        ResponseEntity errors = validationService.validate(result);
+        if(errors != null) return errors;
+        Transaction transactionSaved = transactionService.debitTransact(account_id, transaction);
+        return new ResponseEntity<Transaction>(transactionSaved, HttpStatus.OK);
+    }
+
+//    @PostMapping("/{account_id}")
+//    public ResponseEntity<?> initializeTransaction(@PathVariable Long account_id,
+//                                                   @RequestBody @Valid Transaction transaction,
+//                                                   BindingResult result) {
+//        ResponseEntity errors = validationService.validate(result);
+//        if(errors != null) return errors;
+//        Transaction transactionSaved = transactionService.transact(account_id, transaction);
+//        return new ResponseEntity<Transaction>(transactionSaved, HttpStatus.CREATED);
+//    }
 }

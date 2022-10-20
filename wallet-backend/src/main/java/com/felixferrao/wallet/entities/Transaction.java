@@ -25,10 +25,6 @@ public class Transaction {
     private String reason;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date transactionDate = new Date();
-    @NotNull(message = "The transaction type should be defined")
-    @Min(0)
-    @Max(1)
-    private int transactionType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)

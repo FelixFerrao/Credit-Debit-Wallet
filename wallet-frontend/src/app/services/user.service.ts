@@ -1,23 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  url = 'http://localhost:8080/account';
   constructor(private http: HttpClient) {}
-  email: string | undefined;
-  user_id: number | undefined;
-  balance: number | undefined;
+  url = 'http://localhost:8080/account';
+  user = new User();
 
-  storeUserData(user: User) {
-    this.email = user.email;
-    this.user_id = user.id;
-    this.balance = user.balance;
+  storeUserData(loggedInUser: User) {
+    this.user.email = loggedInUser.email;
+    this.user.id = loggedInUser.id;
+    this.user.balance = loggedInUser.balance;
+    this.user.description = loggedInUser.description;
   }
 
-  userLogin(email: string, password: string) {
-    this.http.post(this.url, '/' + email + '/' + password).subscribe(data);
+  getUserData() {
+    return this.user;
+  }
+
+  userLogin(email: string) {
+    return this.http.get<User>(this.url + '/' + email);
   }
 }

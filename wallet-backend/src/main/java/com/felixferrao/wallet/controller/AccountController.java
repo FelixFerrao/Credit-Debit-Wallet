@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin
 public class AccountController {
 
     @Autowired
@@ -26,6 +27,13 @@ public class AccountController {
     @GetMapping
     public ResponseEntity<?> getAllWallets() {
         return new ResponseEntity<>(accountService.getAllAccounts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{email_id}")
+    public ResponseEntity<?> findDetailsByEmail(@PathVariable String email_id) {
+        Account account = accountService.getAccountDetailsByEmail(email_id);
+        if(account != null) return new ResponseEntity<Account>(account, HttpStatus.OK);
+        return new ResponseEntity<>("Account Not Found", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping
