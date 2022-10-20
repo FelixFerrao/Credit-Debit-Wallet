@@ -1,29 +1,98 @@
 <!-- <p>wallet works!</p> -->
 <nav class="navbar">
-    <h1>Online-Wallet</h1>
-    <!-- <ul>
+  <h1>Online-Wallet</h1>
+  <!-- <ul>
     <li class="btn btn-logout">Logout</li>
   </ul> -->
 </nav>
+<!-- Current Balance -->
 <main>
-    <section>
-        <h2>Current Balance</h2>
-        <h3>₹ {{user.balance}}</h3>
-    </section>
-    <section>
-        <form #creditData="ngForm" (ngSubmit)="creditTransaction(creditData.value)">
-            Enter Amount:<br>
-            <input type="number" name="amount" ngModel><br>
-            Enter Description:<br>
-            <input type="text" name="description" ngModel><br>
-            <input type="submit" value="Credit Amount"><br>
-        </form>
-        <form #debitData="ngForm" (ngSubmit)="debitTransaction(debitData.value)">
-            Enter Amount:<br>
-            <input type="number" name="amount" ngModel><br>
-            Enter Description:<br>
-            <input type="text" name="description" ngModel><br>
-            <input type="submit" value="Debit Amount">
-        </form>
-    </section>
+  <section class="main-wallet">
+    <h2 class="large-heading">Current Balance</h2>
+    <h3 class="amnt">₹ {{ user.balance }}</h3>
+    <a routerLink="/transact" class="show-all" target="_blank"
+      >Show all transactions &#10132;</a
+    >
+  </section>
+  <!-- Transaction options -->
+  <section class="transact">
+    <!-- Debit option -->
+    <article class="debit-box">
+      <h2 class="debit-head">DEBIT FUNDS</h2>
+      <form #debitData="ngForm" (ngSubmit)="debitTransaction(debitData.value)">
+        <label for="amt">Amount</label>
+        <input
+          type="number"
+          name="amount"
+          id="amt"
+          placeholder="Enter Amount in Rs."
+          required
+          ngModel
+        /><br />
+        <label for="res">Reason</label>
+        <input
+          type="text"
+          name="reason"
+          id="res"
+          placeholder="Enter Reason (Optional)"
+          required
+          ngModel
+        /><br />
+        <input type="submit" class="btn btn-debit" value="DEBIT" />
+      </form>
+    </article>
+    <!-- Credit option -->
+    <article class="credit-box">
+      <h2 class="credit-head">CREDIT FUNDS</h2>
+      <form
+        #creditData="ngForm"
+        (ngSubmit)="creditTransaction(creditData.value)"
+      >
+        <label for="amt">Amount</label>
+        <input
+          type="number"
+          name="amount"
+          id="amt"
+          placeholder="Enter Amount in Rs."
+          required
+          ngModel
+        />
+        <br />
+        <label for="res">Reason </label>
+        <input
+          type="text"
+          name="reason"
+          id="res"
+          placeholder="Enter Reason (Optional)"
+          required
+          ngModel
+        />
+        <br />
+        <input type="submit" class="btn btn-credit" value="CREDIT" />
+      </form>
+    </article>
+  </section>
 </main>
+
+<!-- <main>
+  <section>
+    <h2>Current Balance</h2>
+    <h3>₹ {{ user.balance }}</h3>
+  </section>
+  <section>
+    <form #creditData="ngForm" (ngSubmit)="creditTransaction(creditData.value)">
+      Enter Amount:<br />
+      <input type="number" name="amount" ngModel /><br />
+      Enter Description:<br />
+      <input type="text" name="description" ngModel /><br />
+      <input type="submit" value="Credit Amount" /><br />
+    </form>
+    <form #debitData="ngForm" (ngSubmit)="debitTransaction(debitData.value)">
+      Enter Amount:<br />
+      <input type="number" name="amount" ngModel /><br />
+      Enter Description:<br />
+      <input type="text" name="description" ngModel /><br />
+      <input type="submit" value="Debit Amount" />
+    </form>
+  </section>
+</main> -->
