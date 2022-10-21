@@ -92,30 +92,3 @@ input:focus {
     text-align: center;
     cursor: pointer;
 }
-
-.not-user {
-    letter-spacing: 0.1rem;
-    border-radius: 1rem;
-    font-weight: 500;
-    margin: 1.2rem auto;
-    padding: 1rem;
-    width: fit-content;
-    line-height: 1.2rem;
-    background: aqua;
-    color: orangered;
-    font-size: 1.5rem;
-    word-wrap: break-word;
-}
-
-a,
-a:active {
-    color: darkgreen;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-a:hover,
-a:focus {
-    color: black;
-}

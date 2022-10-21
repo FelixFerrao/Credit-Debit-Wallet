@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { registerDTO } from '../dto/userRegisterDTO';
 import { User } from './user';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { User } from './user';
 })
 export class UserService {
   constructor(private http: HttpClient) {}
-  url = 'http://localhost:8080/account';
+  url = 'http://localhost:8080/wallet';
   user = new User();
 
   storeUserData(loggedInUser: User) {
@@ -22,11 +23,15 @@ export class UserService {
     return this.user;
   }
 
+  userRegister(user: registerDTO) {
+    return this.http.post<User>(this.url, user);
+  }
+
   userLogin(email: string): Observable<User> {
     return this.http.get<User>(this.url + '/' + email);
   }
 
-  getUserDataById(user_id: number): Observable<User> {
-    return this.http.get<User>(this.url + '/' + user_id);
+  getUserDataByEmail(user_email: string): Observable<User> {
+    return this.http.get<User>(this.url + '/' + user_email);
   }
 }

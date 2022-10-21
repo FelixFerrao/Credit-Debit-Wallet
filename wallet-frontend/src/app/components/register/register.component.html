@@ -1,0 +1,15 @@
+<!-- Registration Component -->
+<nav class="navbar">
+    <h1>Online-Wallet</h1>
+</nav>
+<main>
+    <section>
+        <form #registerData="ngForm" (ngSubmit)="register(registerData.value)">
+            <h2 class="large-text">Registration</h2>
+            <input type="text" id="user-name" placeholder="Enter Name" name="username" required ngModel> <br>
+            <input type="text" id="user-email" placeholder="Enter Email" name="email" required ngModel> <br>
+            <input type="password" id="user-pass" placeholder="Enter Password" name="password" required ngModel> <br>
+            <input type="submit" value="Register" class="btn btn-submit">
+        </form>
+    </section>
+</main>

@@ -1,9 +1,6 @@
-<!-- <p>login works!</p> -->
+<!-- Login Component -->
 <nav class="navbar">
   <h1>Online-Wallet</h1>
-  <!-- <ul>
-    <li class="btn btn-logout">Logout</li>
-  </ul> -->
 </nav>
 <main>
   <section class="login">
@@ -12,6 +9,7 @@
       <input type="text" id="user-email" placeholder="Enter Email" name="email" ngModel> <br>
       <input type="password" id="user-pass" placeholder="Enter Password" name="password" ngModel> <br>
       <input type="submit" value="Login" class="btn btn-submit">
+      <p class="not-user">Not a user? <a routerLink="/register" routerLinkActive="active" class="register">Register&nbsp;Here</a></p>
     </form>
   </section>
 </main>

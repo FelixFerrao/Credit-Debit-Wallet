@@ -1,12 +1,12 @@
 package com.felixferrao.wallet.repositories;
 
-import com.felixferrao.wallet.entities.Account;
+import com.felixferrao.wallet.entities.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
-    Optional<Account> findByEmail(String email);
+public interface WalletRepository extends JpaRepository<Wallet, Long> {
+    Optional<Wallet> findByEmail(String email);
 }

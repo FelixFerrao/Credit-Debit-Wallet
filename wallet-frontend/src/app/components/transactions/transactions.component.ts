@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Transactions } from 'src/app/services/transaction';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { User } from 'src/app/services/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transactions[];
+  user = new User()
   constructor(
     private transactionService: TransactionService,
     private userService: UserService,
@@ -18,6 +20,7 @@ export class TransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user = this.userService.getUserData();
     if (this.userService.getUserData().id) {
       this.transactionService
         .getAllTransactions(this.userService.getUserData().id)

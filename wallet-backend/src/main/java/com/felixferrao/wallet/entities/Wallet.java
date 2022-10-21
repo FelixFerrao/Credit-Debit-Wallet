@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Account {
+public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +22,5 @@ public class Account {
     private String name;
     @NotBlank(message = "Password cannot be blank")
     private String password;
-    @Size(min = 3, max = 30)
-    private String accountNumber;
-    private Double balance = new Double(0);;
-    @Size(min = 10, max = 100)
-    private String description;
+    private Double balance = new Double(0);
 }

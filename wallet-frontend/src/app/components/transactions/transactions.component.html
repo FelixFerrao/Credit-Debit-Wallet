@@ -1,5 +1,14 @@
-<!-- <p>transactions works!</p> -->
+<!-- Transactions -->
+<!-- Navbar -->
+<nav class="navbar">
+    <h1>Online-Wallet</h1>
+</nav>
 <main>
+    <section class="main-wallet">
+        <h2 class="large-heading">Current Balance</h2>
+        <h3 class="amnt">₹ {{ user.balance }}</h3>
+        <a routerLink="/wallet" class="show-all">&#8592; Go back to wallet</a>
+    </section>
     <section class="container">
         <table>
             <tr>
@@ -10,8 +19,11 @@
             <tr *ngFor="let transaction of transactions">
                 <td >{{transaction.reason}}</td>
                 <td >{{transaction.transactionDate}}</td>
-                <td *ngIf="transaction.transactionType == 0">- {{transaction.amount}}</td>
-                <td *ngIf="transaction.transactionType == 1">+ {{transaction.amount}}</td>
+                <td *ngIf="transaction.transactionType == 0" style="background-color: #F62817; color: white;">
+                    &#8722;{{transaction.amount}}
+                </td>
+                <td *ngIf="transaction.transactionType == 1" style="background-color: #0fe907; color: #333;">&#43;{{transaction.amount}}
+                </td>
             </tr>
         </table>
     </section>

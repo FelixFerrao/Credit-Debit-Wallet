@@ -18,22 +18,15 @@ export class WalletComponent implements OnInit {
     private userService: UserService,
     private transactionService: TransactionService,
     private router: Router
-  ) {
-    setTimeout(() => {
-      this.user = this.userService.getUserData();
-    }, 10000);
-  }
+  ) {}
   transaction = new Transactions();
   user = new User();
   transactionDTO = new TransactDTO();
 
   ngOnInit(): void {
-    // setTimeout(() => {
-    //   this.user = this.userService.getUserData();
-    // }, 10000);
+    // Getting the user data
     this.user = this.userService.getUserData();
     if (this.user.id == null) {
-      alert('Kindly login');
       this.router.navigate(['/login']);
     }
   }
@@ -48,13 +41,13 @@ export class WalletComponent implements OnInit {
       .creditTransaction(this.transactionDTO, this.user.id)
       .subscribe((data) => {
         alert('Transaction successful');
+        this.userService.getUserDataByEmail(this.user.email).subscribe((data) => {
+          this.userService.storeUserData(data);
+        });
+        this.amount = 0;
+        this.router.navigate(['/transact']);
       });
     // Updating the user balance after the transaction
-    this.userService.getUserDataById(this.user.id).subscribe((data) => {
-      this.userService.storeUserData(data);
-      this.user = data;
-    });
-    this.amount = 0;
   }
 
   // Debit Operation
@@ -70,13 +63,14 @@ export class WalletComponent implements OnInit {
         .subscribe((data) => {
           console.log('Transaction details ' + data);
           alert('Transaction successful');
+          this.userService.getUserDataByEmail(this.user.email).subscribe((data) => {
+            this.userService.storeUserData(data);
+            console.log('Updated user data: ' + data)
+          });
+          this.amount = 0;
+          this.router.navigate(['/transact']);
         });
     }
-    this.userService.getUserDataById(this.user.id).subscribe((data) => {
-      this.user = data;
-      this.userService.storeUserData(data);
-    });
-    this.amount = 0;
-    console.log(this.transactionDTO);
+    // console.log(this.transactionDTO);
   }
 }
